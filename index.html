@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">PostID</th>
+                <th scope="col"> Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Body</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        <script>
+            //function defination
+            function getComments(obj,cbfn){
+                //create a xhr obj
+                let xhr = new XMLHttpRequest();
+                xhr.open(obj.method,obj.url);
+                xhr.send();
+                xhr.onload = function(){
+                    console.log(xhr.responseText);
+                    cbfn(xhr.responseText);
+                }
+            }
+            //function calling
+            getComments({url:'https://jsonplaceholder.typicode.com/comments',method:"GET"},function(response){
+                console.log(response);
+                response = JSON.parse(response);
+                console.log(response);
+                var tr = '';
+                response.forEach(element => {
+                    console.log(element);
+                    
+                    
+
+                    tr += `<tr>
+                                            <th scope="row">`+element.Postid+`</th>
+                                            <td>`+element.Id+`</td>
+                                            <td>`+element.name+`</td>
+                                            <td>`+element.email+`</td>
+                                            <td>`+element.body+`</td>
+                                            
+                                               
+                                            </td>
+                                        </tr>`;
+                    
+                    
+
+
+
+                });
+                console.log(tr);
+                document.querySelector('table > tbody').innerHTML = tr;
+            
+            })
+
+        </script>
+        
+    </body>
+</html>
